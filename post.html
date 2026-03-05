@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post a Job - Work And Workers</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #3b82f6;
+            --secondary: #1e40af;
+            --accent: #60a5fa;
+            --dark: #0f172a;
+            --darker: #020617;
+            --light: #f8fafc;
+            --text: #cbd5e1;
+            --text-dark: #94a3b8;
+            --success: #10b981;
+            --card-bg: #1e293b;
+            --header-bg: rgba(15, 23, 42, 0.95);
+            --footer-bg: #020617;
+        }
+
+        [data-theme="light"] {
+            --primary: #3b82f6;
+            --secondary: #1e40af;
+            --accent: #60a5fa;
+            --dark: #f1f5f9;
+            --darker: #e2e8f0;
+            --light: #0f172a;
+            --text: #334155;
+            --text-dark: #475569;
+            --success: #10b981;
+            --card-bg: #ffffff;
+            --header-bg: rgba(255, 255, 255, 0.95);
+            --footer-bg: #e2e8f0;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--darker), var(--dark));
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: var(--header-bg);
+            color: var(--text);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            transition: background 0.3s ease;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            animation: fadeIn 1s ease;
+        }
+
+        .logo i {
+            color: #fbbf24;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #fbbf24;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #fbbf24;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .btn-login {
+            background: transparent;
+            color: var(--text);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-login:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-signup {
+            background: #fbbf24;
+            color: var(--dark);
+        }
+
+        .btn-signup:hover {
+            background: #f59e0b;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(245, 158, 11, 0.4);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.2rem;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+            margin-top: 0.3rem;
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary);
+            transform: translateY(-1px);
+            box-shadow: 0 3px 8px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            background: transparent;
+            border: none;
+            color: var(--text);
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(30deg);
+        }
+
+        .theme-toggle .fa-sun {
+            display: none;
+        }
+
+        [data-theme="light"] .theme-toggle .fa-sun {
+            display: block;
+        }
+
+        [data-theme="light"] .theme-toggle .fa-moon {
+            display: none;
+        }
+
+        /* Post Job Section - COMPACT VERSION */
+        .post-job-section {
+            flex: 1;
+            padding: 1.5rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-header h1 {
+            font-size: 1.8rem;
+            color: var(--light);
+            margin-bottom: 0.4rem;
+            line-height: 1.2;
+        }
+
+        .section-header p {
+            font-size: 0.9rem;
+            color: var(--text);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .post-job-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: start;
+            max-width: 1000px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .job-info {
+            padding: 1.2rem;
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .job-info::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--primary);
+        }
+
+        .job-info h2 {
+            font-size: 1.3rem;
+            color: var(--light);
+            margin-bottom: 0.8rem;
+        }
+
+        .job-info p {
+            font-size: 0.85rem;
+            line-height: 1.4;
+            margin-bottom: 0.8rem;
+        }
+
+        .benefits-list {
+            list-style: none;
+            margin-top: 1.2rem;
+        }
+
+        .benefits-list li {
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.85rem;
+        }
+
+        .benefits-list i {
+            color: var(--success);
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .job-form-container {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .job-form-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--primary);
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 1.2rem;
+        }
+
+        .form-header h2 {
+            font-size: 1.4rem;
+            color: var(--light);
+            margin-bottom: 0.3rem;
+        }
+
+        .form-header p {
+            color: var(--text);
+            font-size: 0.85rem;
+        }
+
+        .job-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .form-group label {
+            color: var(--light);
+            font-weight: 500;
+            font-size: 0.85rem;
+        }
+
+        .input-with-icon {
+            position: relative;
+        }
+
+        .input-with-icon i {
+            position: absolute;
+            left: 0.7rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-dark);
+            font-size: 0.8rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.7rem 0.7rem 0.7rem 2.2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            color: var(--text);
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+        }
+
+        textarea.form-control {
+            min-height: 80px;
+            resize: vertical;
+            padding-left: 0.7rem;
+            font-size: 0.8rem;
+        }
+
+        /* Company Name and Job Title in one line */
+        .form-row-compact {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.7rem;
+        }
+
+        /* Job Description and Qualifications in one line */
+        .form-row-textarea {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.7rem;
+        }
+
+        /* Regular form rows for other fields */
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.7rem;
+        }
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.3rem;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.8rem;
+        }
+
+        .checkbox-group input {
+            accent-color: var(--primary);
+            transform: scale(0.8);
+        }
+
+        /* Image Upload Styles */
+        .image-upload-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .image-upload-area {
+            border: 2px dashed var(--text-dark);
+            border-radius: 5px;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .image-upload-area:hover {
+            border-color: var(--primary);
+            background: rgba(59, 130, 246, 0.05);
+        }
+
+        .image-upload-area i {
+            font-size: 1.6rem;
+            color: var(--text-dark);
+            margin-bottom: 0.6rem;
+        }
+
+        .image-upload-area p {
+            margin-bottom: 0.3rem;
+            font-size: 0.8rem;
+        }
+
+        .image-upload-area span {
+            font-size: 0.75rem;
+            color: var(--text-dark);
+        }
+
+        .image-preview {
+            display: none;
+            margin-top: 0.6rem;
+            text-align: center;
+        }
+
+        .image-preview img {
+            max-width: 100%;
+            max-height: 120px;
+            border-radius: 5px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .remove-image {
+            margin-top: 0.4rem;
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 0.3rem 0.6rem;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.75rem;
+        }
+
+        .remove-image:hover {
+            background: #dc2626;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--footer-bg);
+            color: var(--text);
+            padding: 2rem 0 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: auto;
+            transition: background 0.3s ease;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 10px;
+            color: var(--light);
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--primary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--light);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            color: var(--text);
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-dark);
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .post-job-container {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .job-info {
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .post-job-section {
+                padding: 1rem 0;
+            }
+            
+            .section-header {
+                margin-bottom: 1rem;
+            }
+            
+            .section-header h1 {
+                font-size: 1.6rem;
+            }
+            
+            .job-form-container {
+                padding: 1rem;
+            }
+            
+            .form-row-compact,
+            .form-row-textarea,
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .image-upload-area {
+                padding: 0.8rem;
+            }
+            
+            .image-upload-area i {
+                font-size: 1.4rem;
+                margin-bottom: 0.4rem;
+            }
+
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .auth-buttons {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+        .logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    margin-top: 5px;
+    height: 50px; /* Adjust as needed */
+    width: auto;
+    max-width: 200px; /* Prevent logo from being too wide */
+}
+
+.text-logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333; /* Adjust color to match your design */
+    text-decoration: none;
+}
+
+/* For responsive design */
+@media (max-width: 768px) {
+    .logo img {
+        height: 35px;
+    }
+    
+    .text-logo {
+        font-size: 1.3rem;
+    }
+}
+
+    </style>
+</head>
+<body>
+     <!-- Header -->
+<header>
+    <div class="container">
+        <nav class="navbar">
+            <div class="logo">
+                <!-- Replace with your actual logo image -->
+                <a href="index.html">
+                    <img src="img/logo.jpg" alt="Company Logo">
+                </a>
+                <!-- Alternative text logo if image is not available -->
+                <!-- <a href="index.html" class="text-logo">JobPortal</a> -->
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <!-- <li><a href="servcies.html">Services</a></li> -->
+                <li><a href="joblist.html">Job List</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                 <a href="post.html"><button class="btn btn-login active">Post a Job</button></a>
+                <a href="apply.html"><button class="btn btn-login">Apply Now</button></a>
+                <a href="login.html"><button class="btn btn-login">Login</button></a>
+                <a href="signin.html"><button class="btn btn-signup">Sign Up</button></a>
+            </div>
+        </nav>
+    </div>
+</header>
+    <!-- Post Job Section -->
+    <section class="post-job-section">
+        <div class="container">
+            <div class="section-header">
+                <h1>Post a Job Opportunity</h1>
+                <p>Reach thousands of qualified candidates and find the perfect fit for your organization</p>
+            </div>
+            
+            <div class="post-job-container">
+                <div class="job-info">
+                    <h2>Why Post on Work and Workers?</h2>
+                    <p>Work and Workers isn't just another job board—it's a specialized ecosystem of professionals actively seeking new opportunities. Unlike generic platforms where your posting might get lost in a sea of irrelevant applications, our advanced matching algorithm ensures your job reaches candidates with the specific skills, experience, and career aspirations that align with your requirements. This targeted approach means you spend less time sifting through unqualified applications and more time engaging with serious contenders.
+
+Our platform hosts thousands of active job seekers across diverse industries, from technology and healthcare to finance and creative fields. This diversity ensures that whether you're looking for entry-level talent or experienced professionals, you'll find candidates who genuinely fit your organizational needs. The days of posting a job and hoping for the right applicants are over; with Work and Workers, you're strategically positioning your opportunity in front of people who are already predisposed to be interested.</p>
+                    
+                    <ul class="benefits-list">
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span>Access to thousands of active job seekers</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span>Advanced candidate matching technology</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span>Easy application management dashboard</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span>Dedicated employer support team</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span>Performance analytics and insights</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="job-form-container">
+                    <div class="form-header">
+                        <h2>Job Details</h2>
+                        <p>Fill in the information about your job opening</p>
+                    </div>
+                    
+                    <form class="job-form" id="jobForm">
+                        <!-- Job Title and Company Name in one line -->
+                        <div class="form-row-compact">
+                            <div class="form-group">
+                                <label for="jobTitle">Job Title *</label>
+                                <div class="input-with-icon">
+                                    <i class="fas fa-briefcase"></i>
+                                    <input type="text" id="jobTitle" class="form-control" placeholder="e.g. Senior Web Developer" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="companyName">Company Name *</label>
+                                <div class="input-with-icon">
+                                    <i class="fas fa-building"></i>
+                                    <input type="text" id="companyName" class="form-control" placeholder="Your company name" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="jobLocation">Job Location *</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <input type="text" id="jobLocation" class="form-control" placeholder="City, State or Remote" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="jobType">Job Type *</label>
+                                <select id="jobType" class="form-control" required>
+                                    <option value="">Select job type</option>
+                                    <option value="full-time">Full-time</option>
+                                    <option value="part-time">Part-time</option>
+                                    <option value="contract">Contract</option>
+                                    <option value="temporary">Temporary</option>
+                                    <option value="internship">Internship</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="salaryRange">Salary Range</label>
+                                <div class="input-with-icon">
+                                    <i class="fas fa-pkr-sign"></i>
+                                    <input type="text" id="salaryRange" class="form-control" placeholder="e.g. 60,000 - 80,000">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="jobCategory">Job Category *</label>
+                            <select id="jobCategory" class="form-control" required>
+                                <option value="">Select category</option>
+                                <option value="technology">Technology</option>
+                                <option value="healthcare">Healthcare</option>
+                                <option value="finance">Finance</option>
+                                <option value="education">Education</option>
+                                <option value="marketing">Marketing</option>
+                                <option value="sales">Sales</option>
+                                <option value="design">Design</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Job Description and Qualifications in one line -->
+                        <div class="form-row-textarea">
+                            <div class="form-group">
+                                <label for="jobDescription">Job Description *</label>
+                                <textarea id="jobDescription" class="form-control" placeholder="Describe the role, responsibilities, and requirements..." required></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="qualifications">Required Qualifications</label>
+                                <textarea id="qualifications" class="form-control" placeholder="List the required skills, education, and experience..."></textarea>
+                            </div>
+                        </div>
+                        
+                        <!-- Image Upload Section -->
+                        <div class="form-group">
+                            <label for="companyLogo">Company Logo / Job Image</label>
+                            <div class="image-upload-container">
+                                <div class="image-upload-area" id="imageUploadArea">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                    <p>Click to upload or drag and drop</p>
+                                    <span>PNG, JPG, GIF up to 5MB</span>
+                                    <input type="file" id="companyLogo" accept="image/*" style="display: none;">
+                                </div>
+                                <div class="image-preview" id="imagePreview">
+                                    <img id="previewImage" src="" alt="Preview">
+                                    <button type="button" class="remove-image" id="removeImage">Remove Image</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="applicationEmail">Application Email *</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-envelope"></i>
+                                <input type="email" id="applicationEmail" class="form-control" placeholder="Email to receive applications" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-options">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="featuredJob">
+                                <label for="featuredJob">Feature this job (additional cost)</label>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary">Post Job</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+   <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Work and Workers</h3>
+                    <p>Connecting talent with opportunity. We're dedicated to helping you find the perfect job match.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="job-listings.html">Job List</a></li>
+                        <li><a href="apply.html">Apply Now</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Job Categories</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Security Guard</a></li>
+                        <li><a href="#">Housemate</a></li>
+                        <li><a href="#">Factory Workers</a></li>
+                        <li><a href="#">Accountants</a></li>
+                        <li><a href="#">Developers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> Office #3, 5 Floor, Gohar center Muslim Town, Wahdat Road, Lahore</li>
+                        <li><i class="fas fa-phone"></i> 042-37002908</li>
+                        <li><i class="fas fa-envelope"></i> workandworkerspk.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy;All rights reserved. Created By IT GENESIS</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+        
+        // Check for saved theme preference or use device preference
+        const currentTheme = localStorage.getItem('theme') || 
+                            (prefersDarkScheme.matches ? 'dark' : 'light');
+        
+        // Set initial theme
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        
+        // Toggle theme on button click
+        themeToggle.addEventListener('click', function() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+
+        // Image Upload Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const imageUploadArea = document.getElementById('imageUploadArea');
+            const companyLogoInput = document.getElementById('companyLogo');
+            const imagePreview = document.getElementById('imagePreview');
+            const previewImage = document.getElementById('previewImage');
+            const removeImageBtn = document.getElementById('removeImage');
+            
+            // Click on upload area to trigger file input
+            imageUploadArea.addEventListener('click', function() {
+                companyLogoInput.click();
+            });
+            
+            // Handle file selection
+            companyLogoInput.addEventListener('change', function() {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    
+                    reader.addEventListener('load', function() {
+                        previewImage.src = reader.result;
+                        imagePreview.style.display = 'block';
+                        imageUploadArea.style.display = 'none';
+                    });
+                    
+                    reader.readAsDataURL(file);
+                }
+            });
+            
+            // Remove image functionality
+            removeImageBtn.addEventListener('click', function() {
+                companyLogoInput.value = '';
+                imagePreview.style.display = 'none';
+                imageUploadArea.style.display = 'block';
+            });
+            
+            // Drag and drop functionality
+            imageUploadArea.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                imageUploadArea.style.borderColor = 'var(--primary)';
+                imageUploadArea.style.background = 'rgba(59, 130, 246, 0.1)';
+            });
+            
+            imageUploadArea.addEventListener('dragleave', function() {
+                imageUploadArea.style.borderColor = 'var(--text-dark)';
+                imageUploadArea.style.background = 'rgba(255, 255, 255, 0.02)';
+            });
+            
+            imageUploadArea.addEventListener('drop', function(e) {
+                e.preventDefault();
+                imageUploadArea.style.borderColor = 'var(--text-dark)';
+                imageUploadArea.style.background = 'rgba(255, 255, 255, 0.02)';
+                
+                if (e.dataTransfer.files.length) {
+                    companyLogoInput.files = e.dataTransfer.files;
+                    const event = new Event('change');
+                    companyLogoInput.dispatchEvent(event);
+                }
+            });
+            
+            // Simple animation on scroll
+            const animatedElements = document.querySelectorAll('.job-info, .job-form-container');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            animatedElements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(el);
+            });
+
+            // Job Form Submission
+            const jobForm = document.getElementById('jobForm');
+            jobForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form values
+                const jobTitle = document.getElementById('jobTitle').value;
+                const companyName = document.getElementById('companyName').value;
+                const jobLocation = document.getElementById('jobLocation').value;
+                const jobType = document.getElementById('jobType').value;
+                const salaryRange = document.getElementById('salaryRange').value;
+                const jobCategory = document.getElementById('jobCategory').value;
+                const jobDescription = document.getElementById('jobDescription').value;
+                const qualifications = document.getElementById('qualifications').value;
+                const applicationEmail = document.getElementById('applicationEmail').value;
+                const featuredJob = document.getElementById('featuredJob').checked;
+                const companyLogo = document.getElementById('companyLogo').files[0];
+                
+                // Simple validation
+                if (!jobTitle || !companyName || !jobLocation || !jobType || !jobCategory || !jobDescription || !applicationEmail) {
+                    alert('Please fill in all required fields.');
+                    return;
+                }
+                
+                // Show success message (in a real app, this would be an API call)
+                let message = `Your job posting has been submitted successfully!`;
+                if (featuredJob) message += ' Your job will be featured on our platform.';
+                if (companyLogo) message += ' Your company logo has been uploaded.';
+                
+                alert(message);
+                
+                // In a real application, you would redirect to a confirmation page
+                // window.location.href = 'job-posted.html';
+            });
+
+            // Apply Now button functionality
+            const applyButtons = document.querySelectorAll('.btn-login');
+            applyButtons.forEach(button => {
+                if (button.textContent === 'Apply Now') {
+                    button.addEventListener('click', () => {
+                        alert('You will be redirected to the job application page.');
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

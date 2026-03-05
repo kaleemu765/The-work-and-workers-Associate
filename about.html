@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Work And Workers</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    margin-top: 5px;
+    height: 50px; /* Adjust as needed */
+    width: auto;
+    max-width: 200px; /* Prevent logo from being too wide */
+}
+
+.text-logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333; /* Adjust color to match your design */
+    text-decoration: none;
+}
+
+/* For responsive design */
+@media (max-width: 768px) {
+    .logo img {
+        height: 35px;
+    }
+    
+    .text-logo {
+        font-size: 1.3rem;
+    }
+}
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #3b82f6;
+            --secondary: #1e40af;
+            --accent: #60a5fa;
+            --dark: #0f172a;
+            --darker: #020617;
+            --light: #f8fafc;
+            --text: #cbd5e1;
+            --text-dark: #94a3b8;
+            --success: #10b981;
+            --card-bg: #1e293b;
+        }
+
+        /* Light mode variables */
+        [data-theme="light"] {
+            --primary: #3b82f6;
+            --secondary: #1e40af;
+            --accent: #60a5fa;
+            --dark: #f1f5f9;
+            --darker: #e2e8f0;
+            --light: #0f172a;
+            --text: #334155;
+            --text-dark: #475569;
+            --success: #10b981;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--darker), var(--dark));
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: rgba(15, 23, 42, 0.95);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        [data-theme="light"] header {
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--text);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .logo i {
+            color: #fbbf24;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #fbbf24;
+        }
+
+        .nav-links a.active {
+            color: #fbbf24;
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #fbbf24;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .btn-login {
+            background: transparent;
+            color: white;
+            border: 2px solid var(--primary);
+        }
+
+        [data-theme="light"] .btn-login {
+            color: var(--text);
+        }
+
+        .btn-login:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-signup {
+            background: #fbbf24;
+            color: var(--dark);
+        }
+
+        .btn-signup:hover {
+            background: #f59e0b;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(245, 158, 11, 0.4);
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle {
+            background: transparent;
+            border: none;
+            color: var(--text);
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        [data-theme="light"] .theme-toggle:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(2, 6, 23, 0.9)), url('https://images.unsplash.com/photo-1521737711867-e3b97375f902?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 6rem 0;
+            text-align: center;
+        }
+
+        [data-theme="light"] .page-header {
+            background: linear-gradient(rgba(255, 255, 255, 0.85), rgba(226, 232, 240, 0.9)), url('https://images.unsplash.com/photo-1521737711867-e3b97375f902?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
+            color: var(--text);
+        }
+
+        .page-header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            max-width: 100%;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        /* About Intro */
+        .about-intro {
+            padding: 5rem 0;
+            background: var(--darker);
+            transition: all 0.3s ease;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: white;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        [data-theme="light"] .section-title h2 {
+            color: var(--text);
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .section-title p {
+            max-width: 700px;
+            margin: 0 auto;
+            color: var(--text);
+        }
+
+        .intro-content {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+        }
+
+        .intro-text {
+            flex: 1;
+        }
+
+        .intro-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        [data-theme="light"] .intro-text h3 {
+            color: var(--text);
+        }
+
+        .intro-text p {
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+
+        .intro-stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat h4 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat p {
+            color: var(--text-dark);
+        }
+
+        .intro-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        [data-theme="light"] .intro-image {
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .intro-image img {
+            width: 100%;
+            height: 500px;
+            display: block;
+        }
+
+        /* Mission & Vision */
+        .mission-vision {
+            padding: 5rem 0;
+            background: var(--dark);
+            transition: all 0.3s ease;
+        }
+
+        .mv-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+
+        .mv-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 2.5rem;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        [data-theme="light"] .mv-card {
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .mv-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        [data-theme="light"] .mv-card:hover {
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .mv-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        .mv-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        [data-theme="light"] .mv-card h3 {
+            color: var(--text);
+        }
+
+        .mv-card p {
+            color: var(--text);
+        }
+
+        /* Values */
+        .values {
+            padding: 5rem 0;
+            background: var(--darker);
+            transition: all 0.3s ease;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .value-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        [data-theme="light"] .value-card {
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .value-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        [data-theme="light"] .value-card:hover {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .value-icon {
+            width: 70px;
+            height: 70px;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 1.8rem;
+            color: var(--primary);
+        }
+
+        .value-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        [data-theme="light"] .value-card h3 {
+            color: var(--text);
+        }
+
+        .value-card p {
+            color: var(--text);
+            font-size: 0.95rem;
+        }
+
+        /* Team Section */
+        .team {
+            padding: 5rem 0;
+            background: var(--dark);
+            transition: all 0.3s ease;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .team-member {
+            background: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        [data-theme="light"] .team-member {
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        [data-theme="light"] .team-member:hover {
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .member-image {
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .member-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .team-member:hover .member-image img {
+            transform: scale(1.1);
+        }
+
+        .member-info {
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .member-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        [data-theme="light"] .member-info h3 {
+            color: var(--text);
+        }
+
+        .member-info .position {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .member-info p {
+            color: var(--text);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .member-social {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .member-social a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            color: var(--text);
+            transition: all 0.3s ease;
+        }
+
+        [data-theme="light"] .member-social a {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .member-social a:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* Timeline */
+        .timeline {
+            padding: 5rem 0;
+            background: var(--darker);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 2px;
+            background: var(--primary);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            margin-bottom: 3rem;
+            position: relative;
+            width: 50%;
+            padding-right: 3rem;
+        }
+
+        .timeline-item:nth-child(even) {
+            margin-left: 50%;
+            padding-right: 0;
+            padding-left: 3rem;
+        }
+
+        .timeline-content {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        [data-theme="light"] .timeline-content {
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .timeline-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        [data-theme="light"] .timeline-content h3 {
+            color: var(--text);
+        }
+
+        .timeline-content .year {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .timeline-content p {
+            color: var(--text);
+            font-size: 0.95rem;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            top: 1.5rem;
+            right: -6px;
+            width: 12px;
+            height: 12px;
+            background: var(--primary);
+            border-radius: 50%;
+        }
+
+        .timeline-item:nth-child(even)::after {
+            right: auto;
+            left: -6px;
+        }
+
+        /* CTA Section */
+        .cta {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.1;
+        }
+
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .cta p {
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            font-size: 1.1rem;
+            position: relative;
+        }
+
+        .btn-cta {
+            background: #fbbf24;
+            color: var(--dark);
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            display: inline-block;
+            transition: all 0.3s ease;
+            position: relative;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .btn-cta:hover {
+            background: #f59e0b;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--darker);
+            color: white;
+            padding: 4rem 0 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        [data-theme="light"] footer {
+            color: var(--text);
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 10px;
+            color: white;
+        }
+
+        [data-theme="light"] .footer-column h3 {
+            color: var(--text);
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--primary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        [data-theme="light"] .footer-links a:hover {
+            color: var(--text);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            color: var(--text);
+            transition: all 0.3s ease;
+        }
+
+        [data-theme="light"] .social-links a {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-dark);
+            font-size: 0.9rem;
+        }
+
+        [data-theme="light"] .footer-bottom {
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .intro-content {
+                flex-direction: column;
+            }
+            
+            .page-header h1 {
+                font-size: 2.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+
+            .timeline-container::before {
+                left: 30px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-right: 0;
+                padding-left: 70px;
+            }
+
+            .timeline-item:nth-child(even) {
+                margin-left: 0;
+                padding-left: 70px;
+            }
+
+            .timeline-item::after {
+                left: 24px;
+                right: auto;
+            }
+
+            .timeline-item:nth-child(even)::after {
+                left: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+     <!-- Header -->
+<header>
+    <div class="container">
+        <nav class="navbar">
+            <div class="logo">
+                <!-- Replace with your actual logo image -->
+                <a href="index.html">
+                    <img src="img/logo.jpg" alt="Company Logo">
+                </a>
+                <!-- Alternative text logo if image is not available -->
+                <!-- <a href="index.html" class="text-logo">JobPortal</a> -->
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html" >Home</a></li>
+                <li><a href="about.html" class="active">About Us</a></li>
+                <!-- <li><a href="servcies.html">Services</a></li> -->
+                <li><a href="joblist.html">Job List</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                 <a href="post.html"><button class="btn btn-login">Post a Job</button></a>
+                <a href="apply.html"><button class="btn btn-login">Apply Now</button></a>
+                <a href="login.html"><button class="btn btn-login">Login</button></a>
+                <a href="signin.html"><button class="btn btn-signup">Sign Up</button></a>
+            </div>
+        </nav>
+    </div>
+</header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>About Work and Workers</h1>
+            <p>Best Employment Services Pvt Ltd is based in Pakistan in the city of Lahore. We are a Best Employment and Management Services company dedicated to providing excellent Employees and services to our clients. We have got legal entity duly approved by Government of Pakistan. BEMS is legally authorized to cater to the Employee and Services needs of Government / Semi Government Institutions / Departments, Autonomous, Banks, Janitorial Services, Foreign Companies, All Organizations, Financial Institutions, institution Services, Private and Public Sectors of Industries and Private residences multinational Companies, Private Companies etc on terms and conditions mutually agreed by e h ve galaxy of retrained, ace, smart vigil and alert Employees and H.R Managers who Our Employees are well behaved and fully trained in the field of all Services. They are also courteous in dealing with visitors and public. </p>
+            <p>Work and Workers ایک جدید اور معتبر پلیٹ فارم ہے جہاں دنیا بھر کے افراد کو بہترین ملازمت کے مواقع فراہم کیے جاتے ہیں۔ اس پلیٹ فارم کا بنیادی مقصد ایسے افراد اور اداروں کے درمیان مضبوط رابطہ قائم کرنا ہے جو روزگار کی تلاش میں ہیں اور جو باصلاحیت لوگوں کی تلاش کر رہے ہیں۔
+
+یہ پلیٹ فارم نہ صرف مقامی بلکہ بین الاقوامی سطح پر بھی ملازمت کے مواقع فراہم کرتا ہے تاکہ صارفین اپنی قابلیت اور تجربے کے مطابق بہترین نوکری حاصل کر سکیں۔
+
+Work and Workers کا مشن یہ ہے کہ ہر فرد کو اُس کے ہنر کے مطابق روزگار ملے اور ہر ادارے کو قابل اور تجربہ کار اسٹاف میسر ہو۔
+
+یہ پلیٹ فارم مکمل طور پر user-friendly ہے، جہاں CV بنا کر اپلوڈ کرنے، جاب سرچ کرنے اور مختلف کمپنیوں سے براہِ راست رابطہ کرنے کی سہولت موجود ہے۔
+
+اگر آپ اپنی پروفیشنل زندگی کو بہتر بنانا چاہتے ہیں اور ایک کامیاب کیریئر کا آغاز کرنا چاہتے ہیں تو Work and Workers آپ کے لیے بہترین انتخاب ہے۔</p>
+        </div>
+    </section>
+
+    <!-- About Intro -->
+    <section class="about-intro">
+        <div class="container">
+            <div class="intro-content">
+                <div class="intro-text">
+                    <h3>Our Story</h3>
+                    <p>Best Employment Services Pvt Ltd is based in Pakistan in the city of Lahore. We are a Best Employment and Management Services company dedicated to providing excellent Employees and services to our clients. We have got legal entity duly approved by Government of Pakistan. BEMS is legally authorized to cater to the Employee and Services needs of Government / Semi Government Institutions / Departments, Autonomous, Banks, Janitorial Services, Foreign Companies, All Organizations, Financial Institutions, institution Services, Private and Public Sectors of Industries and Private residences multinational Companies, Private Companies etc on terms and conditions mutually agreed by e h ve galaxy of retrained, ace, smart vigil and alert Employees and H.R Managers who Our Employees are well behaved and fully trained in the field of all Services. They are also courteous in dealing with visitors and public. Our Employees import necessary skills in the modern aspects of all services and keep updating them in threats, which ensures the alertness,
+
+
+Give us a try! We are available to work with open-end contracts. Best Employment & Management Service looks forward to providing you with your Employees service. </p>
+                    <p>
+</p>
+                    <div class="intro-stats">
+                        <div class="stat">
+                            <h4>150K+</h4>
+                            <p>Successful Hires</p>
+                        </div>
+                        <div class="stat">
+                            <h4>25K+</h4>
+                            <p>Partner Companies</p>
+                        </div>
+                        <div class="stat">
+                            <h4>95%</h4>
+                            <p>Success Rate</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="intro-image">
+                    <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Our team collaborating">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission & Vision -->
+    <section class="mission-vision">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Mission & Vision</h2>
+                <p>Driving our commitment to transform the recruitment industry</p>
+            </div>
+            <div class="mv-container">
+                <div class="mv-card">
+                    <div class="mv-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h3>Our Mission</h3>
+                    <p>To create meaningful connections between talent and opportunity by providing an intuitive, efficient, and transparent platform that empowers both job seekers and employers to achieve their goals.</p>
+                </div>
+                <div class="mv-card">
+                    <div class="mv-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h3>Our Vision</h3>
+                    <p>To become the world's most trusted career platform, where anyone can find their dream job and every company can build their dream team, regardless of location or background.</p>
+                </div>
+                <div class="mv-card">
+                    <div class="mv-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>Our Promise</h3>
+                    <p>We commit to maintaining the highest standards of integrity, providing personalized support, and continuously innovating to meet the evolving needs of our community.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values -->
+    <section class="values">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Values</h2>
+                <p>The principles that guide everything we do</p>
+            </div>
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Collaboration</h3>
+                    <p>We believe in the power of teamwork and partnership to achieve extraordinary results for our clients and candidates.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>Innovation</h3>
+                    <p>We continuously seek new ways to improve our platform and services, embracing technology to enhance the recruitment experience.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>Empathy</h3>
+                    <p>We understand the challenges of job hunting and hiring, and we approach every interaction with compassion and understanding.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Integrity</h3>
+                    <p>We operate with honesty and transparency, building trust through ethical practices and reliable service.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3>Excellence</h3>
+                    <p>We strive for the highest quality in everything we do, from platform features to customer support.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3>Inclusion</h3>
+                    <p>We celebrate diversity and work to create opportunities for people from all backgrounds and experiences.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team">
+        <div class="container">
+            <div class="section-title">
+                <h2>Meet Our Leadership Team</h2>
+                <p>The passionate professionals driving Work And Workers                                     forward</p>
+            </div>
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Sarah Johnson">
+                    </div>
+                    <div class="member-info">
+                        <h3>Muhammad Amir</h3>
+                        <p class="position">CEO & Founder</p>
+                        <p>With over 15 years in HR and recruitment, Sarah founded Work and Workers to revolutionize how people find meaningful work.</p>
+                        <div class="member-social">
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Michael Chen">
+                    </div>
+                    <div class="member-info">
+                        <h3>Muhammad Zeeshan</h3>
+                        <p class="position">CTO</p>
+                        <p>Michael leads our technology team, ensuring our platform remains cutting-edge, secure, and user-friendly.</p>
+                        <div class="member-social">
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Elena Rodriguez">
+                    </div>
+                    <div class="member-info">
+                        <h3>Ayesha Zaman</h3>
+                        <p class="position">Head of Partnerships</p>
+                        <p>Elena builds relationships with top employers and ensures they find the perfect candidates for their teams.</p>
+                        <div class="member-social">
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline -->
+    <section class="timeline">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Journey</h2>
+                <p>Key milestones in work and Workers growth story</p>
+            </div>
+            <div class="timeline-container">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="year">2015</span>
+                        <h3>Company Founded</h3>
+                        <p>Work and Workers was established with a vision to transform the recruitment industry through technology and personalized service.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="year">2017</span>
+                        <h3>Platform Launch</h3>
+                        <p>We launched our first version of the Work and Workers platform, serving 100+ companies and 5,000 job seekers in our first year.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="year">2019</span>
+                        <h3>Series A Funding</h3>
+                        <p>Secured $5M in Series A funding to expand our team, enhance our technology, and grow our market presence.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="year">2021</span>
+                        <h3>International Expansion</h3>
+                        <p>Expanded our services to Europe and Asia, helping companies build global teams and professionals find international opportunities.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="year">2023</span>
+                        <h3>150K+ Successful Hires</h3>
+                        <p>Celebrated a major milestone of facilitating over 150,000 successful job placements across various industries and roles.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>Join the Work and Workers Community</h2>
+            <p>Whether you're looking for your next career move or seeking top talent for your organization, we're here to help you succeed.</p>
+            <a href="#" class="btn btn-cta">Get Started Today</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Work and Workers</h3>
+                    <p>Connecting talent with opportunity. We're dedicated to helping you find the perfect job match.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="job-listings.html">Job List</a></li>
+                        <li><a href="apply.html">Apply Now</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Job Categories</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Security Guard</a></li>
+                        <li><a href="#">Housemate</a></li>
+                        <li><a href="#">Factory Workers</a></li>
+                        <li><a href="#">Accountants</a></li>
+                        <li><a href="#">Developers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> Office #3, 5 Floor, Gohar center Muslim Town, Wahdat Road, Lahore</li>
+                        <li><i class="fas fa-phone"></i> 042-37002908</li>
+                        <li><i class="fas fa-envelope"></i> workandworkerspk.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy;All rights reserved. Created By IT GENESIS</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animation on scroll
+            const animatedElements = document.querySelectorAll('.intro-content, .mv-card, .value-card, .team-member, .timeline-item');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            animatedElements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(el);
+            });
+
+            // Theme toggle functionality
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = themeToggle.querySelector('i');
+            
+            // Check for saved theme preference or default to dark
+            const currentTheme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            
+            // Update icon based on current theme
+            if (currentTheme === 'light') {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            }
+            
+            themeToggle.addEventListener('click', () => {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                
+                // Update theme
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                
+                // Update icon
+                if (newTheme === 'light') {
+                    themeIcon.classList.remove('fa-moon');
+                    themeIcon.classList.add('fa-sun');
+                } else {
+                    themeIcon.classList.remove('fa-sun');
+                    themeIcon.classList.add('fa-moon');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Application - Work And Workers</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+
+        
+        .logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    margin-top: 5px;
+    height: 50px; /* Adjust as needed */
+    width: auto;
+    max-width: 200px; /* Prevent logo from being too wide */
+}
+
+.text-logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333; /* Adjust color to match your design */
+    text-decoration: none;
+}
+
+/* For responsive design */
+@media (max-width: 768px) {
+    .logo img {
+        height: 35px;
+    }
+    
+    .text-logo {
+        font-size: 1.3rem;
+    }
+}
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #3b82f6;
+            --secondary: #1e40af;
+            --accent: #60a5fa;
+            --dark: #0f172a;
+            --darker: #020617;
+            --light: #f8fafc;
+            --text: #cbd5e1;
+            --text-dark: #94a3b8;
+            --success: #10b981;
+            --card-bg: #1e293b;
+            --header-bg: rgba(15, 23, 42, 0.95);
+            --footer-bg: #020617;
+        }
+
+        [data-theme="light"] {
+            --primary: #3b82f6;
+            --secondary: #1e40af;
+            --accent: #60a5fa;
+            --dark: #f1f5f9;
+            --darker: #e2e8f0;
+            --light: #0f172a;
+            --text: #334155;
+            --text-dark: #475569;
+            --success: #10b981;
+            --card-bg: #ffffff;
+            --header-bg: rgba(255, 255, 255, 0.95);
+            --footer-bg: #e2e8f0;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--darker), var(--dark));
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: var(--header-bg);
+            color: var(--text);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            transition: background 0.3s ease;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            animation: fadeIn 1s ease;
+        }
+
+        .logo i {
+            color: #fbbf24;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #fbbf24;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #fbbf24;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .btn-login {
+            background: transparent;
+            color: var(--text);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-login:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-signup {
+            background: #fbbf24;
+            color: var(--dark);
+        }
+
+        .btn-signup:hover {
+            background: #f59e0b;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(245, 158, 11, 0.4);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            background: transparent;
+            border: none;
+            color: var(--text);
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(30deg);
+        }
+
+        .theme-toggle .fa-sun {
+            display: none;
+        }
+
+        [data-theme="light"] .theme-toggle .fa-sun {
+            display: block;
+        }
+
+        [data-theme="light"] .theme-toggle .fa-moon {
+            display: none;
+        }
+
+        /* Application Form Section */
+        .application-section {
+            flex: 1;
+            padding: 3rem 0;
+        }
+
+        .application-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .application-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .application-header h1 {
+            font-size: 2.5rem;
+            color: var(--light);
+            margin-bottom: 0.5rem;
+        }
+
+        .application-header p {
+            color: var(--text);
+            font-size: 1.1rem;
+        }
+
+        .application-form-container {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .application-form-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--primary);
+        }
+
+        .form-note {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border-left: 4px solid #fbbf24;
+        }
+
+        .form-note p {
+            color: var(--text);
+            font-size: 0.95rem;
+        }
+
+        .form-section {
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .form-section:last-of-type {
+            border-bottom: none;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--light);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary);
+            display: inline-block;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            color: var(--light);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .required::after {
+            content: " *";
+            color: #ef4444;
+        }
+
+        .optional::after {
+            content: " (Optional)";
+            color: var(--text-dark);
+            font-weight: normal;
+            font-size: 0.85rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin-top: 1rem;
+        }
+
+        .form-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1rem;
+        }
+
+        .form-table th {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--light);
+            padding: 0.8rem;
+            text-align: left;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .form-table td {
+            padding: 0.8rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .form-table input {
+            width: 100%;
+            padding: 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(151, 69, 69, 0.1);
+            border-radius: 4px;
+            color: var(--text);
+            font-size: 0.9rem;
+        }
+
+        .form-table input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .signature-area {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .signature-field {
+            width: 100%;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px dashed rgba(3, 0, 0, 0.2);
+            border-radius: 8px;
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-dark);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .signature-field:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--primary);
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            gap: 1rem;
+        }
+
+        .btn-submit {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            flex: 1;
+        }
+
+        .btn-submit:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-reset {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            flex: 1;
+        }
+
+        .btn-reset:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--text-dark);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--footer-bg);
+            color: var(--text);
+            padding: 2rem 0 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: auto;
+            transition: background 0.3s ease;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 10px;
+            color: var(--light);
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--primary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--light);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            color: var(--text);
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-dark);
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .application-form-container {
+                padding: 2rem;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .auth-buttons {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+      <!-- Header -->
+<header>
+    <div class="container">
+        <nav class="navbar">
+            <div class="logo">
+                <!-- Replace with your actual logo image -->
+                <a href="index.html">
+                    <img src="img/logo.jpg" alt="Company Logo">
+                </a>
+                <!-- Alternative text logo if image is not available -->
+                <!-- <a href="index.html" class="text-logo">JobPortal</a> -->
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <!-- <li><a href="servcies.html">Services</a></li> -->
+                <li><a href="joblist.html">Job List</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                 <a href="post.html"><button class="btn btn-login">Post a Job</button></a>
+                <a href="apply.html"><button class="btn btn-login active">Apply Now</button></a>
+                <a href="login.html"><button class="btn btn-login">Login</button></a>
+                <a href="signin.html"><button class="btn btn-signup">Sign Up</button></a>
+            </div>
+        </nav>
+    </div>
+</header>
+
+    <!-- Application Form Section -->
+    <section class="application-section">
+        <div class="container">
+            <div class="application-container">
+                <div class="application-header">
+                    <h1>Job Application Form</h1>
+                    <p>Complete this form to apply for your desired position</p>
+                </div>
+                
+                <div class="application-form-container">
+                    <div class="form-note">
+                        <p><strong>NOTE:</strong> Read the form carefully and write all the information correctly. In case of entering wrong information your application may be rejected.</p>
+                    </div>
+                    
+                    <form id="jobApplicationForm">
+                        <!-- Job Information Section -->
+                        <div class="form-section">
+                            <h2 class="section-title">Job Information</h2>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="position" class="required">Position you are applying for:</label>
+                                    <input type="text" id="position" class="form-control" placeholder="Enter position" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="salary" class="required">Desired Salary (Rs.):</label>
+                                    <input type="number" id="salary" class="form-control" placeholder="Enter desired salary" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="available-date" class="required">Date Available for Work:</label>
+                                    <input type="date" id="available-date" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="current-position" class="optional">Current Position of Job:</label>
+                                    <input type="text" id="current-position" class="form-control" placeholder="Enter current position">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="nic" class="required">NIC #:</label>
+                                    <input type="text" id="nic" class="form-control" placeholder="Enter NIC number" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="desired-city" class="required">Desired City for Job:</label>
+                                    <input type="text" id="desired-city" class="form-control" placeholder="Enter desired city" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Personal Information Section -->
+                        <div class="form-section">
+                            <h2 class="section-title">Personal Information</h2>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="full-name" class="required">Applicant Full Name:</label>
+                                    <input type="text" id="full-name" class="form-control" placeholder="Enter full name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="father-husband-name" class="required">Father's Name / Husband's Name:</label>
+                                    <input type="text" id="father-husband-name" class="form-control" placeholder="Enter name" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="height" class="required">Height (cm):</label>
+                                    <input type="number" id="height" class="form-control" placeholder="Enter height in centimeters" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="weight" class="required">Weight (kg):</label>
+                                    <input type="number" id="weight" class="form-control" placeholder="Enter weight in kilograms" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="current-address" class="required">Current Address:</label>
+                                    <textarea id="current-address" class="form-control" rows="2" placeholder="Enter current address" required></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="permanent-address" class="optional">Permanent Address:</label>
+                                    <textarea id="permanent-address" class="form-control" rows="2" placeholder="Enter permanent address"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="city-district" class="optional">City / District:</label>
+                                    <input type="text" id="city-district" class="form-control" placeholder="Enter city/district">
+                                </div>
+                                <div class="form-group">
+                                    <label for="total-experience" class="optional">Total Experience:</label>
+                                    <input type="text" id="total-experience" class="form-control" placeholder="Enter total experience">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="home-phone" class="optional">Home Phone:</label>
+                                    <input type="tel" id="home-phone" class="form-control" placeholder="Enter home phone">
+                                </div>
+                                <div class="form-group">
+                                    <label for="cell-phone" class="optional">Cell Phone:</label>
+                                    <input type="tel" id="cell-phone" class="form-control" placeholder="Enter cell phone">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="email" class="optional">Email:</label>
+                                    <input type="email" id="email" class="form-control" placeholder="Enter email">
+                                </div>
+                                <div class="form-group">
+                                    <label for="whatsapp" class="required">WhatsApp No:</label>
+                                    <input type="tel" id="whatsapp" class="form-control" placeholder="Enter WhatsApp number" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Education Section -->
+                        <div class="form-section">
+                            <h2 class="section-title">Education</h2>
+                            <div class="table-container">
+                                <table class="form-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Degree / Certificate</th>
+                                            <th>Year Passed</th>
+                                            <th>Division</th>
+                                            <th>Board / University</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input type="text" placeholder="Degree/Certificate"></td>
+                                            <td><input type="text" placeholder="Year"></td>
+                                            <td><input type="text" placeholder="Division"></td>
+                                            <td><input type="text" placeholder="Board/University"></td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="text" placeholder="Degree/Certificate"></td>
+                                            <td><input type="text" placeholder="Year"></td>
+                                            <td><input type="text" placeholder="Division"></td>
+                                            <td><input type="text" placeholder="Board/University"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <!-- Working Experience Section -->
+                        <div class="form-section">
+                            <h2 class="section-title">Working Experience</h2>
+                            <div class="table-container">
+                                <table class="form-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Company Name</th>
+                                            <th>Position of Job</th>
+                                            <th>Main Duty</th>
+                                            <th>Duration of Duty</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input type="text" placeholder="Company name"></td>
+                                            <td><input type="text" placeholder="Position"></td>
+                                            <td><input type="text" placeholder="Main duty"></td>
+                                            <td><input type="text" placeholder="From - To"></td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="text" placeholder="Company name"></td>
+                                            <td><input type="text" placeholder="Position"></td>
+                                            <td><input type="text" placeholder="Main duty"></td>
+                                            <td><input type="text" placeholder="From - To"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <!-- Signature Section -->
+                        <div class="form-section">
+                            <h2 class="section-title">Signature</h2>
+                            <div class="signature-area">
+                                <label>Signature of Applicant:</label>
+                                <div class="signature-field" id="signatureField">
+                                    <span>Click to add your signature</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Form Actions -->
+                        <div class="form-actions">
+                            <button type="reset" class="btn-reset">Reset Form</button>
+                            <button type="submit" class="btn-submit">Submit Application</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+   <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Work and Workers</h3>
+                    <p>Connecting talent with opportunity. We're dedicated to helping you find the perfect job match.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="job-listings.html">Job List</a></li>
+                        <li><a href="apply.html">Apply Now</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Job Categories</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Security Guard</a></li>
+                        <li><a href="#">Housemate</a></li>
+                        <li><a href="#">Factory Workers</a></li>
+                        <li><a href="#">Accountants</a></li>
+                        <li><a href="#">Developers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> Office #3, 5 Floor, Gohar center Muslim Town, Wahdat Road, Lahore</li>
+                        <li><i class="fas fa-phone"></i> 042-37002908</li>
+                        <li><i class="fas fa-envelope"></i> workandworkerspk.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy;All rights reserved. Created By IT GENESIS</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+        
+        // Check for saved theme preference or use device preference
+        const currentTheme = localStorage.getItem('theme') || 
+                            (prefersDarkScheme.matches ? 'dark' : 'light');
+        
+        // Set initial theme
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        
+        // Toggle theme on button click
+        themeToggle.addEventListener('click', function() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+
+        // Form Submission
+        const jobApplicationForm = document.getElementById('jobApplicationForm');
+        jobApplicationForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values for validation
+            const position = document.getElementById('position').value;
+            const salary = document.getElementById('salary').value;
+            const nic = document.getElementById('nic').value;
+            const fullName = document.getElementById('full-name').value;
+            const fatherHusbandName = document.getElementById('father-husband-name').value;
+            const height = document.getElementById('height').value;
+            const weight = document.getElementById('weight').value;
+            const currentAddress = document.getElementById('current-address').value;
+            const whatsapp = document.getElementById('whatsapp').value;
+            
+            // Simple validation for required fields
+            if (!position || !salary || !nic || !fullName || !fatherHusbandName || 
+                !height || !weight || !currentAddress || !whatsapp) {
+                alert('Please fill in all required fields marked with *.');
+                return;
+            }
+            
+            // Show success message (in a real app, this would be an API call)
+            alert(`Thank you, ${fullName}! Your application for the ${position} position has been submitted successfully.`);
+            
+            // In a real application, you would submit the form data to a server
+            // and potentially redirect to a confirmation page
+        });
+
+        // Signature Field Interaction
+        const signatureField = document.getElementById('signatureField');
+        signatureField.addEventListener('click', function() {
+            alert('In a real application, this would open a signature pad or allow you to upload a signature image.');
+            signatureField.innerHTML = '<span>Signature added</span>';
+            signatureField.style.background = 'rgba(16, 185, 129, 0.1)';
+            signatureField.style.borderColor = 'var(--success)';
+        });
+
+        // Simple animation on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedElements = document.querySelectorAll('.application-header, .application-form-container');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            animatedElements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>

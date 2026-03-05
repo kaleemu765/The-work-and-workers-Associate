@@ -1,0 +1,2199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Listings - Work And Workers</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+     .logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    margin-top: 5px;
+    height: 50px; /* Adjust as needed */
+    width: auto;
+    max-width: 200px; /* Prevent logo from being too wide */
+}
+
+.text-logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333; /* Adjust color to match your design */
+    text-decoration: none;
+}
+
+/* For responsive design */
+@media (max-width: 768px) {
+    .logo img {
+        height: 35px;
+    }
+    
+    .text-logo {
+        font-size: 1.3rem;
+    }
+}
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #3b82f6;
+            --secondary: #1e40af;
+            --accent: #60a5fa;
+            --dark: #0f172a;
+            --darker: #020617;
+            --light: #f8fafc;
+            --text: #cbd5e1;
+            --text-dark: #94a3b8;
+            --success: #10b981;
+            --card-bg: #1e293b;
+        }
+
+        /* Light mode variables */
+        [data-theme="light"] {
+            --primary: #3b82f6;
+            --secondary: #1e40af;
+            --accent: #60a5fa;
+            --dark: #f1f5f9;
+            --darker: #e2e8f0;
+            --light: #0f172a;
+            --text: #334155;
+            --text-dark: #475569;
+            --success: #10b981;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--darker), var(--dark));
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: rgba(15, 23, 42, 0.95);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        [data-theme="light"] header {
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--text);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .logo i {
+            color: #fbbf24;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #fbbf24;
+        }
+
+        .nav-links a.active {
+            color: #fbbf24;
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #fbbf24;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .btn-login {
+            background: transparent;
+            color: white;
+            border: 2px solid var(--primary);
+        }
+
+        [data-theme="light"] .btn-login {
+            color: var(--text);
+        }
+
+        .btn-login:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-signup {
+            background: #fbbf24;
+            color: var(--dark);
+        }
+
+        .btn-signup:hover {
+            background: #f59e0b;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(245, 158, 11, 0.4);
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle {
+            background: transparent;
+            border: none;
+            color: var(--text);
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        [data-theme="light"] .theme-toggle:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(2, 6, 23, 0.9)), url('https://images.unsplash.com/photo-1586281380349-632531db7ed4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        [data-theme="light"] .page-header {
+            background: linear-gradient(rgba(255, 255, 255, 0.85), rgba(226, 232, 240, 0.9)), url('https://images.unsplash.com/photo-1586281380349-632531db7ed4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
+            color: var(--text);
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        /* Job Categories Navigation */
+        .categories-nav {
+            background: var(--card-bg);
+            padding: 1.5rem 0;
+            position: sticky;
+            top: 80px;
+            z-index: 999;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .categories-container {
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+        }
+
+        .category-tab {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        [data-theme="light"] .category-tab {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .category-tab:hover {
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--primary);
+        }
+
+        .category-tab.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Job Listings */
+        .job-listings {
+            padding: 3rem 0;
+        }
+
+        .job-category {
+            margin-bottom: 4rem;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        [data-theme="light"] .category-header {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .category-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .category-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .category-title h2 {
+            font-size: 2rem;
+            color: white;
+        }
+
+        [data-theme="light"] .category-title h2 {
+            color: var(--text);
+        }
+
+        .job-count {
+            background: var(--primary);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .jobs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .job-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            flex-direction: column;
+        }
+
+        [data-theme="light"] .job-card {
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .job-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        [data-theme="light"] .job-card:hover {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .job-title {
+            font-size: 1.2rem;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        [data-theme="light"] .job-title {
+            color: var(--text);
+        }
+
+        .job-company {
+            color: var(--text-dark);
+            font-size: 0.9rem;
+        }
+
+        .job-type {
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--primary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .job-details {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .job-detail {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-dark);
+            font-size: 0.9rem;
+        }
+
+        .job-detail i {
+            color: var(--primary);
+        }
+
+        .job-description {
+            margin-bottom: 1.5rem;
+            color: var(--text);
+            font-size: 0.95rem;
+            flex-grow: 1;
+        }
+
+        .job-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+
+        .job-salary {
+            color: white;
+            font-weight: 600;
+        }
+
+        [data-theme="light"] .job-salary {
+            color: var(--text);
+        }
+
+        .btn-apply {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-apply:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
+        }
+
+        /* View More Section */
+        .view-more {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .btn-view-more {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-view-more:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--darker);
+            color: white;
+            padding: 4rem 0 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        [data-theme="light"] footer {
+            color: var(--text);
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 10px;
+            color: white;
+        }
+
+        [data-theme="light"] .footer-column h3 {
+            color: var(--text);
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--primary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        [data-theme="light"] .footer-links a:hover {
+            color: var(--text);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            color: var(--text);
+            transition: all 0.3s ease;
+        }
+
+        [data-theme="light"] .social-links a {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-dark);
+            font-size: 0.9rem;
+        }
+
+        [data-theme="light"] .footer-bottom {
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .jobs-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+
+            .category-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .jobs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .categories-container {
+                padding-bottom: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+     <!-- Header -->
+<header>
+    <div class="container">
+        <nav class="navbar">
+            <div class="logo">
+                <!-- Replace with your actual logo image -->
+                <a href="index.html">
+                    <img src="img/logo.jpg" alt="Company Logo">
+                </a>
+                <!-- Alternative text logo if image is not available -->
+                <!-- <a href="index.html" class="text-logo">JobPortal</a> -->
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <!-- <li><a href="servcies.html">Services</a></li> -->
+                <li><a href="joblist.html" class="active">Job List</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                 <a href="post.html"><button class="btn btn-login">Post a Job</button></a>
+                <a href="apply.html"><button class="btn btn-login">Apply Now</button></a>
+                <a href="login.html"><button class="btn btn-login">Login</button></a>
+                <a href="signin.html"><button class="btn btn-signup">Sign Up</button></a>
+            </div>
+        </nav>
+    </div>
+</header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Job Listings</h1>
+            <p>Browse through thousands of job opportunities across various industries and find your perfect match</p>
+        </div>
+    </section>
+
+    <!-- Job Categories Navigation -->
+    <section class="categories-nav">
+        <div class="container">
+            <div class="categories-container">
+                <button class="category-tab active" data-category="all">All Jobs</button>
+                <button class="category-tab" data-category="security">
+                    <i class="fas fa-shield-alt"></i> Security
+                </button>
+                <button class="category-tab" data-category="housemate">
+                    <i class="fas fa-home"></i> Housemate
+                </button>
+                <button class="category-tab" data-category="factory">
+                    <i class="fas fa-industry"></i> Factory
+                </button>
+                <button class="category-tab" data-category="accounting">
+                    <i class="fas fa-calculator"></i> Accounting
+                </button>
+                <button class="category-tab" data-category="development">
+                    <i class="fas fa-laptop-code"></i> Development
+                </button>
+                <button class="category-tab" data-category="it">
+                    <i class="fas fa-network-wired"></i> IT
+                </button>
+                <button class="category-tab" data-category="labor">
+                    <i class="fas fa-hard-hat"></i> Labour
+                </button>
+                <button class="category-tab" data-category="healthcare">
+                    <i class="fas fa-heartbeat"></i> Healthcare
+                </button>
+                <button class="category-tab" data-category="engineering">
+                    <i class="fas fa-cogs"></i> Engineering & Technical
+                </button>
+                <button class="category-tab" data-category="education">
+                    <i class="fas fa-graduation-cap"></i> Education & Training
+                </button>
+                <button class="category-tab" data-category="callcenter">
+                    <i class="fas fa-headset"></i> Call Center Agent
+                </button>
+                <button class="category-tab" data-category="ecommerce">
+                    <i class="fas fa-shopping-cart"></i> E-commerce & Retail
+                </button>
+                <button class="category-tab" data-category="marketing">
+                    <i class="fas fa-chart-line"></i> Marketing & Sales
+                </button>
+                <button class="category-tab" data-category="dataentry">
+                    <i class="fas fa-keyboard"></i> Data Entry Operator
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Job Listings -->
+    <section class="job-listings">
+        <div class="container">
+            <!-- Security Jobs -->
+            <div class="job-category" id="security">
+                <div class="category-header">
+                    <div class="category-title">
+                        <div class="category-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h2>Security Guard Jobs</h2>
+                    </div>
+                    <span class="job-count">12 Jobs</span>
+                </div>
+                <div class="jobs-grid">
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div>
+                                <h3 class="job-title">Senior Security Guard</h3>
+                                <p class="job-company">SecureCorp International</p>
+                            </div>
+                            <span class="job-type">Full-time</span>
+                        </div>
+                        <div class="job-details">
+                            <div class="job-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>New York, NY</span>
+                            </div>
+                            <div class="job-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>3 days ago</span>
+                            </div>
+                        </div>
+                        <p class="job-description">We're looking for experienced security guards to protect our corporate headquarters. Prior security experience and valid license required.</p>
+                        <div class="job-footer">
+                            <div class="job-salary">$45,000 - $55,000</div>
+                            <button class="btn-apply">Apply Now</button>
+                        </div>
+                    </div>
+                    
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div>
+                                <h3 class="job-title">Security Supervisor</h3>
+                                <p class="job-company">Metro Security Services</p>
+                            </div>
+                            <span class="job-type">Full-time</span>
+                        </div>
+                        <div class="job-details">
+                            <div class="job-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Chicago, IL</span>
+                            </div>
+                            <div class="job-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>1 week ago</span>
+                            </div>
+                        </div>
+                        <p class="job-description">Lead a team of security personnel at a commercial complex. Management experience and security certification required.</p>
+                        <div class="job-footer">
+                            <div class="job-salary">$50,000 - $60,000</div>
+                            <button class="btn-apply">Apply Now</button>
+                        </div>
+                    </div>
+                    
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div>
+                                <h3 class="job-title">Night Security Officer</h3>
+                                <p class="job-company">NightWatch Security</p>
+                            </div>
+                            <span class="job-type">Part-time</span>
+                        </div>
+                        <div class="job-details">
+                            <div class="job-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Los Angeles, CA</span>
+                            </div>
+                            <div class="job-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>2 days ago</span>
+                            </div>
+                        </div>
+                        <p class="job-description">Overnight security position at a residential complex. Must be available for night shifts and have reliable transportation.</p>
+                        <div class="job-footer">
+                            <div class="job-salary">$18 - $22/hr</div>
+                            <button class="btn-apply">Apply Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="view-more">
+                    <button class="btn-view-more">View All Security Jobs</button>
+                </div>
+            </div>
+
+            <!-- Housemate Jobs -->
+            <div class="job-category" id="housemate">
+                <div class="category-header">
+                    <div class="category-title">
+                        <div class="category-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <h2>Housemate Jobs</h2>
+                    </div>
+                    <span class="job-count">8 Jobs</span>
+                </div>
+                <div class="jobs-grid">
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div>
+                                <h3 class="job-title">Live-in Caregiver</h3>
+                                <p class="job-company">ElderCare Solutions</p>
+                            </div>
+                            <span class="job-type">Full-time</span>
+                        </div>
+                        <div class="job-details">
+                            <div class="job-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Miami, FL</span>
+                            </div>
+                            <div class="job-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>4 days ago</span>
+                            </div>
+                        </div>
+                        <p class="job-description">Provide companionship and assistance to elderly client. Room and board provided. Experience with elderly care preferred.</p>
+                        <div class="job-footer">
+                            <div class="job-salary">$2,500/month + room/board</div>
+                            <button class="btn-apply">Apply Now</button>
+                        </div>
+                    </div>
+                    
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div>
+                                <h3 class="job-title">Property Manager</h3>
+                                <p class="job-company">RealEstate Partners</p>
+                            </div>
+                            <span class="job-type">Full-time</span>
+                        </div>
+                        <div class="job-details">
+                            <div class="job-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Denver, CO</span>
+                            </div>
+                            <div class="job-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>1 week ago</span>
+                            </div>
+                        </div>
+                        <p class="job-description">Manage residential property in exchange for reduced rent. Responsibilities include tenant coordination and minor maintenance.</p>
+                        <div class="job-footer">
+                            <div class="job-salary">Free housing + stipend</div>
+                            <button class="btn-apply">Apply Now</button>
+                        </div>
+                    </div>
+                    
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div>
+                                <h3 class="job-title">Au Pair</h3>
+                                <p class="job-company">Family Care Network</p>
+                            </div>
+                            <span class="job-type">Full-time</span>
+                        </div>
+                        <div class="job-details">
+                            <div class="job-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Seattle, WA</span>
+                            </div>
+                            <div class="job-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>2 days ago</span>
+                            </div>
+                        </div>
+                        <p class="job-description">Live with host family and provide childcare. Must have childcare experience and valid driver's license. Room and board included.</p>
+                        <div class="job-footer">
+                            <div class="job-salary">$195/week + room/board</div>
+                            <button class="btn-apply">Apply Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="view-more">
+                    <button class="btn-view-more">View All Housemate Jobs</button>
+                </div>
+            </div>
+
+            <!-- Factory Jobs -->
+            <div class="job-category" id="factory">
+                <div class="category-header">
+                    <div class="category-title">
+                        <div class="category-icon">
+                            <i class="fas fa-industry"></i>
+                        </div>
+                        <h2>Factory Jobs</h2>
+                    </div>
+                    <span class="job-count">15 Jobs</span>
+                </div>
+                <div class="jobs-grid">
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div>
+                                <h3 class="job-title">Assembly Line Worker</h3>
+                                <p class="job-company">AutoParts Manufacturing</p>
+                            </div>
+                            <span class="job-type">Full-time</span>
+                        </div>
+                        <div class="job-details">
+                            <div class="job-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Detroit, MI</span>
+                            </div>
+                            <div class="job-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>Just posted</span>
+                            </div>
+                        </div>
+                        <p class="job-description">Assemble automotive parts on production line. No experience required - training provided. Must be able to stand for long periods.</p>
+                        <div class="job-footer">
+                            <div class="job-salary">$16 - $19/hr</div>
+                            <button class="btn-apply">Apply Now</button>
+                        </div>
+                    </div>
+                    
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div>
+                                <h3 class="job-title">Quality Control Inspector</h3>
+                                <p class="job-company">Precision Manufacturing</p>
+                            </div>
+                            <span class="job-type">Full-time</span>
+                        </div>
+                        <div class="job-details">
+                            <div class="job-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Indianapolis, IN</span>
+                            </div>
+                            <div class="job-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>3 days ago</span>
+                            </div>
+                        </div>
+                        <p class="job-description">Inspect finished products for defects and ensure quality standards. Attention to detail and basic measurement skills required.</p>
+                        <div class="job-footer">
+                            <div class="job-salary">$18 - $22/hr</div>
+                            <button class="btn-apply">Apply Now</button>
+                        </div>
+                    </div>
+                    
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div>
+                                <h3 class="job-title">Forklift Operator</h3>
+                                <p class="job-company">Warehouse Logistics Inc.</p>
+                            </div>
+                            <span class="job-type">Full-time</span>
+                        </div>
+                        <div class="job-details">
+                            <div class="job-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Memphis, TN</span>
+                            </div>
+                            <div class="job-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>1 week ago</span>
+                            </div>
+                        </div>
+                        <p class="job-description">Operate forklift to move materials in warehouse. Valid forklift certification required. Previous warehouse experience preferred.</p>
+                        <div class="job-footer">
+                            <div class="job-salary">$17 - $21/hr</div>
+                            <button class="btn-apply">Apply Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="view-more">
+                    <button class="btn-view-more">View All Factory Jobs</button>
+                </div>
+            </div>
+
+            <!-- Accounting Jobs -->
+            <div class="job-category" id="accounting">
+                <div class="category-header">
+                    <div class="category-title">
+                        <div class="category-icon">
+                            <i class="fas fa-calculator"></i>
+                        </div>
+                        <h2>Accounting Jobs</h2>
+                    </div>
+                    <span class="job-count">18 Jobs</span>
+                </div>
+                <div class="jobs-grid">
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div>
+                                <h3 class="job-title">Senior Accountant</h3>
+                                <p class="job-company">FinancePro Group</p>
+                            </div>
+                            <span class="job-type">Full-time</span>
+                        </div>
+                        <div class="job-details">
+                            <div class="job-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Remote</span>
+                            </div>
+                            <div class="job-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>2 days ago</span>
+                            </div>
+                        </div>
+                        <p class="job-description">Manage financial records, prepare reports, and ensure compliance with accounting standards. CPA certification preferred.</p>
+                        <div class="job-footer">
+                            <div class="job-salary">$65,000 - $85,000</div>
+                            <button class="btn-apply">Apply Now</button>
+                        </div>
+                    </div>
+                    
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div>
+                                <h3 class="job-title">Tax Accountant</h3>
+                                <p class="job-company">TaxSolutions Inc.</p>
+                            </div>
+                            <span class="job-type">Full-time</span>
+                        </div>
+                        <div class="job-details">
+                            <div class="job-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Boston, MA</span>
+                            </div>
+                            <div class="job-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>5 days ago</span>
+                            </div>
+                        </div>
+                        <p class="job-description">Prepare tax returns, provide tax planning advice, and ensure compliance with tax regulations. Experience with corporate taxes required.</p>
+                        <div class="job-footer">
+                            <div class="job-salary">$70,000 - $90,000</div>
+                            <button class="btn-apply">Apply Now</button>
+                        </div>
+                    </div>
+                    
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div>
+                                <h3 class="job-title">Junior Bookkeeper</h3>
+                                <p class="job-company">Small Business Solutions</p>
+                            </div>
+                            <span class="job-type">Part-time</span>
+                        </div>
+                        <div class="job-details">
+                            <div class="job-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Miami, FL</span>
+                            </div>
+                            <div class="job-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>Just posted</span>
+                            </div>
+                        </div>
+                        <p class="job-description">Entry-level position maintaining financial records, processing invoices, and assisting with payroll. Training provided.</p>
+                        <div class="job-footer">
+                            <div class="job-salary">$35,000 - $45,000</div>
+                            <button class="btn-apply">Apply Now</button>
+                        </div>
+                    </div>
+                    
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div>
+                                <h3 class="job-title">Financial Analyst</h3>
+                                <p class="job-company">Global Investments LLC</p>
+                            </div>
+                            <span class="job-type">Full-time</span>
+                        </div>
+                        <div class="job-details">
+                            <div class="job-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>San Francisco, CA</span>
+                            </div>
+                            <div class="job-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>1 week ago</span>
+                            </div>
+                        </div>
+                        <p class="job-description">Analyze financial data, create forecasting models, and provide insights to support business decisions. Advanced Excel skills required.</p>
+                        <div class="job-footer">
+                            <div class="job-salary">$75,000 - $95,000</div>
+                            <button class="btn-apply">Apply Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="view-more">
+                    <button class="btn-view-more">View All Accounting Jobs</button>
+                </div>
+            </div>
+
+            <!-- Development Jobs -->
+            <div class="job-category" id="development">
+                <div class="category-header">
+                    <div class="category-title">
+                        <div class="category-icon">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <h2>Development Jobs</h2>
+                    </div>
+                    <span class="job-count">24 Jobs</span>
+                </div>
+                <div class="jobs-grid">
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div>
+                                <h3 class="job-title">Full Stack Developer</h3>
+                                <p class="job-company">TechInnovate Inc.</p>
+                            </div>
+                            <span class="job-type">Full-time</span>
+                        </div>
+                        <div class="job-details">
+                            <div class="job-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>San Francisco, CA</span>
+                            </div>
+                            <div class="job-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>Just posted</span>
+                            </div>
+                        </div>
+                        <p class="job-description">Develop and maintain web applications using modern frameworks. Experience with React, Node.js, and MongoDB required.</p>
+                        <div class="job-footer">
+                            <div class="job-salary">$90,000 - $120,000</div>
+                            <button class="btn-apply">Apply Now</button>
+                        </div>
+                    </div>
+                    
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div>
+                                <h3 class="job-title">Frontend Developer</h3>
+                                <p class="job-company">Digital Creations</p>
+                            </div>
+                            <span class="job-type">Remote</span>
+                        </div>
+                        <div class="job-details">
+                            <div class="job-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Remote</span>
+                            </div>
+                            <div class="job-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>3 days ago</span>
+                            </div>
+                        </div>
+                        <p class="job-description">Create responsive and interactive user interfaces using React, Vue.js, or Angular. Strong CSS skills and attention to detail required.</p>
+                        <div class="job-footer">
+                            <div class="job-salary">$80,000 - $110,000</div>
+                            <button class="btn-apply">Apply Now</button>
+                        </div>
+                    </div>
+                    
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div>
+                                <h3 class="job-title">Mobile App Developer</h3>
+                                <p class="job-company">AppWorks Studio</p>
+                            </div>
+                            <span class="job-type">Full-time</span>
+                        </div>
+                        <div class="job-details">
+                            <div class="job-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Austin, TX</span>
+                            </div>
+                            <div class="job-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>1 week ago</span>
+                            </div>
+                        </div>
+                        <p class="job-description">Develop cross-platform mobile applications using React Native or Flutter. Published apps in app stores preferred.</p>
+                        <div class="job-footer">
+                            <div class="job-salary">$85,000 - $115,000</div>
+                            <button class="btn-apply">Apply Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="view-more">
+                    <button class="btn-view-more">View All Development Jobs</button>
+                </div>
+            </div>
+
+            <!-- IT Jobs -->
+            <div class="job-category" id="it">
+                <div class="category-header">
+                    <div class="category-title">
+                        <div class="category-icon">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                        <h2>IT Jobs</h2>
+                    </div>
+                    <span class="job-count">20 Jobs</span>
+                </div>
+                <div class="jobs-grid">
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div>
+                                <h3 class="job-title">Network Administrator</h3>
+                                <p class="job-company">TechSolutions Corp</p>
+                            </div>
+                            <span class="job-type">Full-time</span>
+                        </div>
+                        <div class="job-details">
+                            <div class="job-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Dallas, TX</span>
+                            </div>
+                            <div class="job-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>2 days ago</span>
+                            </div>
+                        </div>
+                        <p class="job-description">Manage and maintain company network infrastructure. CCNA certification and 3+ years of network administration experience required.</p>
+                        <div class="job-footer">
+                            <div class="job-salary">$70,000 - $90,000</div>
+                            <button class="btn-apply">Apply Now</button>
+                        </div>
+                    </div>
+                    
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div>
+                                <h3 class="job-title">IT Support Specialist</h3>
+                                <p class="job-company">BusinessTech Services</p>
+                            </div>
+                            <span class="job-type">Full-time</span>
+                        </div>
+                        <div class="job-details">
+                            <div class="job-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Phoenix, AZ</span>
+                            </div>
+                            <div class="job-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>Just posted</span>
+                            </div>
+                        </div>
+                        <p class="job-description">Provide technical support to employees, troubleshoot hardware and software issues. Excellent customer service skills required.</p>
+                        <div class="job-footer">
+                            <div class="job-salary">$45,000 - $60,000</div>
+                            <button class="btn-apply">Apply Now</button>
+                        </div>
+                    </div>
+                    
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div>
+                                <h3 class="job-title">Systems Administrator</h3>
+                                <p class="job-company">Enterprise IT Solutions</p>
+                            </div>
+                            <span class="job-type">Full-time</span>
+                        </div>
+                        <div class="job-details">
+                            <div class="job-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Atlanta, GA</span>
+                            </div>
+                            <div class="job-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>1 week ago</span>
+                            </div>
+                        </div>
+                        <p class="job-description">Administer server infrastructure, implement security measures, and ensure system availability. Windows/Linux experience required.</p>
+                        <div class="job-footer">
+                            <div class="job-salary">$75,000 - $95,000</div>
+                            <button class="btn-apply">Apply Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="view-more">
+                    <button class="btn-view-more">View All IT Jobs</button>
+                </div>
+            </div>
+
+            <!-- Labour Jobs -->
+            <div class="job-category" id="labor">
+                <div class="category-header">
+                    <div class="category-title">
+                        <div class="category-icon">
+                            <i class="fas fa-hard-hat"></i>
+                        </div>
+                        <h2>Labour Jobs</h2>
+                    </div>
+                    <span class="job-count">14 Jobs</span>
+                </div>
+                <div class="jobs-grid">
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div>
+                                <h3 class="job-title">Construction Labourer</h3>
+                                <p class="job-company">BuildRight Construction</p>
+                            </div>
+                            <span class="job-type">Full-time</span>
+                        </div>
+                        <div class="job-details">
+                            <div class="job-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Houston, TX</span>
+                            </div>
+                            <div class="job-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>3 days ago</span>
+                            </div>
+                        </div>
+                        <p class="job-description">Perform various physical tasks on construction sites. Must be able to lift heavy objects and work in outdoor conditions.</p>
+                        <div class="job-footer">
+                            <div class="job-salary">$15 - $20/hr</div>
+                            <button class="btn-apply">Apply Now</button>
+                        </div>
+                    </div>
+                    
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div>
+                                <h3 class="job-title">Landscape Worker</h3>
+                                <p class="job-company">GreenThumb Landscaping</p>
+                            </div>
+                            <span class="job-type">Full-time</span>
+                        </div>
+                        <div class="job-details">
+                            <div class="job-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Orlando, FL</span>
+                            </div>
+                            <div class="job-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>Just posted</span>
+                            </div>
+                        </div>
+                        <p class="job-description">Maintain lawns, plant flowers, and perform general landscaping duties. Valid driver's license and reliable transportation required.</p>
+                        <div class="job-footer">
+                            <div class="job-salary">$14 - $18/hr</div>
+                            <button class="btn-apply">Apply Now</button>
+                        </div>
+                    </div>
+                    
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div>
+                                <h3 class="job-title">Warehouse Associate</h3>
+                                <p class="job-company">QuickShip Logistics</p>
+                            </div>
+                            <span class="job-type">Full-time</span>
+                        </div>
+                        <div class="job-details">
+                            <div class="job-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Columbus, OH</span>
+                            </div>
+                            <div class="job-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>5 days ago</span>
+                            </div>
+                        </div>
+                        <p class="job-description">Receive, store, and ship merchandise. Maintain inventory records and ensure warehouse organization. No experience required.</p>
+                        <div class="job-footer">
+                            <div class="job-salary">$16 - $19/hr</div>
+                            <button class="btn-apply">Apply Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="view-more">
+                    <button class="btn-view-more">View All Labor Jobs</button>
+                </div>
+            </div>
+
+            <!-- Healthcare Jobs -->
+            <div class="job-category" id="healthcare">
+                <div class="category-header">
+                    <div class="category-title">
+                        <div class="category-icon">
+                            <i class="fas fa-heartbeat"></i>
+                        </div>
+                        <h2>Healthcare Jobs</h2>
+                    </div>
+                    <span class="job-count">22 Jobs</span>
+                </div>
+                <div class="jobs-grid">
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div>
+                                <h3 class="job-title">Registered Nurse</h3>
+                                <p class="job-company">City General Hospital</p>
+                            </div>
+                            <span class="job-type">Full-time</span>
+                        </div>
+                        <div class="job-details">
+                            <div class="job-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Philadelphia, PA</span>
+                            </div>
+                            <div class="job-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>Just posted</span>
+                            </div>
+                        </div>
+                        <p class="job-description">Provide patient care, administer medications, and collaborate with healthcare team. Active RN license and BLS certification required.</p>
+                        <div class="job-footer">
+                            <div class="job-salary">$70,000 - $90,000</div>
+                            <button class="btn-apply">Apply Now</button>
+                        </div>
+                    </div>
+                    
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div>
+                                <h3 class="job-title">Medical Assistant</h3>
+                                <p class="job-company">Family Health Clinic</p>
+                            </div>
+                            <span class="job-type">Full-time</span>
+                        </div>
+                        <div class="job-details">
+                            <div class="job-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>San Diego, CA</span>
+                            </div>
+                            <div class="job-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>2 days ago</span>
+                            </div>
+                        </div>
+                        <p class="job-description">Assist physicians with patient care, take vital signs, and perform basic laboratory tests. Certification preferred but not required.</p>
+                        <div class="job-footer">
+                            <div class="job-salary">$35,000 - $45,000</div>
+                            <button class="btn-apply">Apply Now</button>
+                        </div>
+                    </div>
+                    
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div>
+                                <h3 class="job-title">Pharmacy Technician</h3>
+                                <p class="job-company">QuickCare Pharmacy</p>
+                            </div>
+                            <span class="job-type">Part-time</span>
+                        </div>
+                        <div class="job-details">
+                            <div class="job-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Portland, OR</span>
+                            </div>
+                            <div class="job-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>1 week ago</span>
+                            </div>
+                        </div>
+                        <p class="job-description">Assist pharmacists with prescription processing, inventory management, and customer service. State certification required.</p>
+                        <div class="job-footer">
+                            <div class="job-salary">$18 - $23/hr</div>
+                            <button class="btn-apply">Apply Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="view-more">
+                    <button class="btn-view-more">View All Healthcare Jobs</button>
+                </div>
+            </div>
+
+            <!-- Engineering & Technical Jobs -->
+            <div class="job-category" id="engineering">
+                <div class="category-header">
+                    <div class="category-title">
+                        <div class="category-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <h2>Engineering & Technical Jobs</h2>
+                    </div>
+                    <span class="job-count">16 Jobs</span>
+                </div>
+                <div class="jobs-grid">
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div>
+                                <h3 class="job-title">Mechanical Engineer</h3>
+                                <p class="job-company">Precision Engineering</p>
+                            </div>
+                            <span class="job-type">Full-time</span>
+                        </div>
+                        <div class="job-details">
+                            <div class="job-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Charlotte, NC</span>
+                            </div>
+                            <div class="job-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>3 days ago</span>
+                            </div>
+                        </div>
+                        <p class="job-description">Design mechanical systems, create technical drawings, and oversee product development. BS in Mechanical Engineering required.</p>
+                        <div class="job-footer">
+                            <div class="job-salary">$75,000 - $95,000</div>
+                            <button class="btn-apply">Apply Now</button>
+                        </div>
+                    </div>
+                    
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div>
+                                <h3 class="job-title">Electrical Technician</h3>
+                                <p class="job-company">Power Systems Inc.</p>
+                            </div>
+                            <span class="job-type">Full-time</span>
+                        </div>
+                        <div class="job-details">
+                            <div class="job-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Denver, CO</span>
+                            </div>
+                            <div class="job-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>Just posted</span>
+                            </div>
+                        </div>
+                        <p class="job-description">Install, maintain, and repair electrical systems. Must have electrical certification and 3+ years of experience.</p>
+                        <div class="job-footer">
+                            <div class="job-salary">$25 - $35/hr</div>
+                            <button class="btn-apply">Apply Now</button>
+                        </div>
+                    </div>
+                    
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div>
+                                <h3 class="job-title">Civil Engineer</h3>
+                                <p class="job-company">Infrastructure Solutions</p>
+                            </div>
+                            <span class="job-type">Full-time</span>
+                        </div>
+                        <div class="job-details">
+                            <div class="job-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Seattle, WA</span>
+                            </div>
+                            <div class="job-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>1 week ago</span>
+                            </div>
+                        </div>
+                        <p class="job-description">Plan and design infrastructure projects, conduct site inspections, and ensure compliance with regulations. PE license preferred.</p>
+                        <div class="job-footer">
+                            <div class="job-salary">$80,000 - $100,000</div>
+                            <button class="btn-apply">Apply Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="view-more">
+                    <button class="btn-view-more">View All Engineering Jobs</button>
+                </div>
+            </div>
+
+            <!-- Education & Training Jobs -->
+            <div class="job-category" id="education">
+                <div class="category-header">
+                    <div class="category-title">
+                        <div class="category-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h2>Education & Training Jobs</h2>
+                    </div>
+                    <span class="job-count">12 Jobs</span>
+                </div>
+                <div class="jobs-grid">
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div>
+                                <h3 class="job-title">High School Teacher</h3>
+                                <p class="job-company">City Public Schools</p>
+                            </div>
+                            <span class="job-type">Full-time</span>
+                        </div>
+                        <div class="job-details">
+                            <div class="job-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Chicago, IL</span>
+                            </div>
+                            <div class="job-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>4 days ago</span>
+                            </div>
+                        </div>
+                        <p class="job-description">Teach mathematics to high school students, develop lesson plans, and assess student progress. State teaching certification required.</p>
+                        <div class="job-footer">
+                            <div class="job-salary">$50,000 - $65,000</div>
+                            <button class="btn-apply">Apply Now</button>
+                        </div>
+                    </div>
+                    
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div>
+                                <h3 class="job-title">Corporate Trainer</h3>
+                                <p class="job-company">Business Skills Institute</p>
+                            </div>
+                            <span class="job-type">Full-time</span>
+                        </div>
+                        <div class="job-details">
+                            <div class="job-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Remote</span>
+                            </div>
+                            <div class="job-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>Just posted</span>
+                            </div>
+                        </div>
+                        <p class="job-description">Develop and deliver training programs for corporate clients. Excellent presentation skills and industry experience required.</p>
+                        <div class="job-footer">
+                            <div class="job-salary">$60,000 - $75,000</div>
+                            <button class="btn-apply">Apply Now</button>
+                        </div>
+                    </div>
+                    
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div>
+                                <h3 class="job-title">ESL Instructor</h3>
+                                <p class="job-company">Language Learning Center</p>
+                            </div>
+                            <span class="job-type">Part-time</span>
+                        </div>
+                        <div class="job-details">
+                            <div class="job-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Miami, FL</span>
+                            </div>
+                            <div class="job-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>2 days ago</span>
+                            </div>
+                        </div>
+                        <p class="job-description">Teach English as a Second Language to adult learners. TESOL certification and experience with diverse populations preferred.</p>
+                        <div class="job-footer">
+                            <div class="job-salary">$25 - $35/hr</div>
+                            <button class="btn-apply">Apply Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="view-more">
+                    <button class="btn-view-more">View All Education Jobs</button>
+                </div>
+            </div>
+
+            <!-- Call Center Agent Jobs -->
+            <div class="job-category" id="callcenter">
+                <div class="category-header">
+                    <div class="category-title">
+                        <div class="category-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h2>Call Center Agent Jobs</h2>
+                    </div>
+                    <span class="job-count">10 Jobs</span>
+                </div>
+                <div class="jobs-grid">
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div>
+                                <h3 class="job-title">Customer Service Representative</h3>
+                                <p class="job-company">Support Solutions Inc.</p>
+                            </div>
+                            <span class="job-type">Full-time</span>
+                        </div>
+                        <div class="job-details">
+                            <div class="job-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Remote</span>
+                            </div>
+                            <div class="job-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>Just posted</span>
+                            </div>
+                        </div>
+                        <p class="job-description">Handle customer inquiries, resolve issues, and provide product information. Excellent communication skills and computer proficiency required.</p>
+                        <div class="job-footer">
+                            <div class="job-salary">$35,000 - $45,000</div>
+                            <button class="btn-apply">Apply Now</button>
+                        </div>
+                    </div>
+                    
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div>
+                                <h3 class="job-title">Technical Support Agent</h3>
+                                <p class="job-company">TechHelp Services</p>
+                            </div>
+                            <span class="job-type">Full-time</span>
+                        </div>
+                        <div class="job-details">
+                            <div class="job-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Salt Lake City, UT</span>
+                            </div>
+                            <div class="job-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>3 days ago</span>
+                            </div>
+                        </div>
+                        <p class="job-description">Provide technical assistance to customers, troubleshoot software issues, and escalate complex problems. Basic IT knowledge required.</p>
+                        <div class="job-footer">
+                            <div class="job-salary">$40,000 - $50,000</div>
+                            <button class="btn-apply">Apply Now</button>
+                        </div>
+                    </div>
+                    
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div>
+                                <h3 class="job-title">Sales Support Agent</h3>
+                                <p class="job-company">SalesPro Connect</p>
+                            </div>
+                            <span class="job-type">Full-time</span>
+                        </div>
+                        <div class="job-details">
+                            <div class="job-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Las Vegas, NV</span>
+                            </div>
+                            <div class="job-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>1 week ago</span>
+                            </div>
+                        </div>
+                        <p class="job-description">Assist sales team with customer follow-up, process orders, and provide product information. Strong phone etiquette required.</p>
+                        <div class="job-footer">
+                            <div class="job-salary">$38,000 - $48,000</div>
+                            <button class="btn-apply">Apply Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="view-more">
+                    <button class="btn-view-more">View All Call Center Jobs</button>
+                </div>
+            </div>
+
+            <!-- E-commerce & Retail Jobs -->
+            <div class="job-category" id="ecommerce">
+                <div class="category-header">
+                    <div class="category-title">
+                        <div class="category-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <h2>E-commerce & Retail Jobs</h2>
+                    </div>
+                    <span class="job-count">15 Jobs</span>
+                </div>
+                <div class="jobs-grid">
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div>
+                                <h3 class="job-title">E-commerce Manager</h3>
+                                <p class="job-company">Online Retail Group</p>
+                            </div>
+                            <span class="job-type">Full-time</span>
+                        </div>
+                        <div class="job-details">
+                            <div class="job-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Remote</span>
+                            </div>
+                            <div class="job-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>2 days ago</span>
+                            </div>
+                        </div>
+                        <p class="job-description">Manage online store, optimize product listings, and analyze sales data. Experience with Shopify or similar platforms required.</p>
+                        <div class="job-footer">
+                            <div class="job-salary">$60,000 - $75,000</div>
+                            <button class="btn-apply">Apply Now</button>
+                        </div>
+                    </div>
+                    
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div>
+                                <h3 class="job-title">Retail Store Manager</h3>
+                                <p class="job-company">Fashion Forward Retail</p>
+                            </div>
+                            <span class="job-type">Full-time</span>
+                        </div>
+                        <div class="job-details">
+                            <div class="job-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>New York, NY</span>
+                            </div>
+                            <div class="job-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>Just posted</span>
+                            </div>
+                        </div>
+                        <p class="job-description">Oversee store operations, manage staff, and drive sales. 3+ years of retail management experience required.</p>
+                        <div class="job-footer">
+                            <div class="job-salary">$55,000 - $70,000</div>
+                            <button class="btn-apply">Apply Now</button>
+                        </div>
+                    </div>
+                    
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div>
+                                <h3 class="job-title">Inventory Specialist</h3>
+                                <p class="job-company">QuickStock Solutions</p>
+                            </div>
+                            <span class="job-type">Full-time</span>
+                        </div>
+                        <div class="job-details">
+                            <div class="job-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Memphis, TN</span>
+                            </div>
+                            <div class="job-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>5 days ago</span>
+                            </div>
+                        </div>
+                        <p class="job-description">Manage inventory levels, conduct stock counts, and coordinate with suppliers. Experience with inventory management systems preferred.</p>
+                        <div class="job-footer">
+                            <div class="job-salary">$40,000 - $50,000</div>
+                            <button class="btn-apply">Apply Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="view-more">
+                    <button class="btn-view-more">View All E-commerce Jobs</button>
+                </div>
+            </div>
+
+            <!-- Marketing & Sales Jobs -->
+            <div class="job-category" id="marketing">
+                <div class="category-header">
+                    <div class="category-title">
+                        <div class="category-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h2>Marketing & Sales Jobs</h2>
+                    </div>
+                    <span class="job-count">18 Jobs</span>
+                </div>
+                <div class="jobs-grid">
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div>
+                                <h3 class="job-title">Digital Marketing Specialist</h3>
+                                <p class="job-company">MarketGrow Agency</p>
+                            </div>
+                            <span class="job-type">Full-time</span>
+                        </div>
+                        <div class="job-details">
+                            <div class="job-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Remote</span>
+                            </div>
+                            <div class="job-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>Just posted</span>
+                            </div>
+                        </div>
+                        <p class="job-description">Develop and implement digital marketing campaigns, analyze performance metrics, and optimize strategies. Experience with Google Ads and social media required.</p>
+                        <div class="job-footer">
+                            <div class="job-salary">$55,000 - $70,000</div>
+                            <button class="btn-apply">Apply Now</button>
+                        </div>
+                    </div>
+                    
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div>
+                                <h3 class="job-title">Sales Representative</h3>
+                                <p class="job-company">Business Solutions Inc.</p>
+                            </div>
+                            <span class="job-type">Full-time</span>
+                        </div>
+                        <div class="job-details">
+                            <div class="job-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Dallas, TX</span>
+                            </div>
+                            <div class="job-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>3 days ago</span>
+                            </div>
+                        </div>
+                        <p class="job-description">Generate new business leads, conduct sales presentations, and close deals. Proven track record in B2B sales required.</p>
+                        <div class="job-footer">
+                            <div class="job-salary">$60,000 + commission</div>
+                            <button class="btn-apply">Apply Now</button>
+                        </div>
+                    </div>
+                    
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div>
+                                <h3 class="job-title">Content Marketing Manager</h3>
+                                <p class="job-company">Content Creators Co.</p>
+                            </div>
+                            <span class="job-type">Full-time</span>
+                        </div>
+                        <div class="job-details">
+                            <div class="job-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>San Francisco, CA</span>
+                            </div>
+                            <div class="job-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>1 week ago</span>
+                            </div>
+                        </div>
+                        <p class="job-description">Develop content strategy, manage content creation team, and measure content performance. Strong writing and editing skills required.</p>
+                        <div class="job-footer">
+                            <div class="job-salary">$70,000 - $85,000</div>
+                            <button class="btn-apply">Apply Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="view-more">
+                    <button class="btn-view-more">View All Marketing Jobs</button>
+                </div>
+            </div>
+
+            <!-- Data Entry Operator Jobs -->
+            <div class="job-category" id="dataentry">
+                <div class="category-header">
+                    <div class="category-title">
+                        <div class="category-icon">
+                            <i class="fas fa-keyboard"></i>
+                        </div>
+                        <h2>Data Entry Operator Jobs</h2>
+                    </div>
+                    <span class="job-count">9 Jobs</span>
+                </div>
+                <div class="jobs-grid">
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div>
+                                <h3 class="job-title">Data Entry Clerk</h3>
+                                <p class="job-company">Office Solutions Inc.</p>
+                            </div>
+                            <span class="job-type">Full-time</span>
+                        </div>
+                        <div class="job-details">
+                            <div class="job-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Remote</span>
+                            </div>
+                            <div class="job-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>Just posted</span>
+                            </div>
+                        </div>
+                        <p class="job-description">Enter data into computer systems, verify accuracy, and maintain records. Fast typing speed and attention to detail required.</p>
+                        <div class="job-footer">
+                            <div class="job-salary">$30,000 - $40,000</div>
+                            <button class="btn-apply">Apply Now</button>
+                        </div>
+                    </div>
+                    
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div>
+                                <h3 class="job-title">Data Processing Specialist</h3>
+                                <p class="job-company">InfoTech Services</p>
+                            </div>
+                            <span class="job-type">Full-time</span>
+                        </div>
+                        <div class="job-details">
+                            <div class="job-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Phoenix, AZ</span>
+                            </div>
+                            <div class="job-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>2 days ago</span>
+                            </div>
+                        </div>
+                        <p class="job-description">Process and verify data, generate reports, and ensure data integrity. Experience with Excel and database systems required.</p>
+                        <div class="job-footer">
+                            <div class="job-salary">$35,000 - $45,000</div>
+                            <button class="btn-apply">Apply Now</button>
+                        </div>
+                    </div>
+                    
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div>
+                                <h3 class="job-title">Administrative Assistant</h3>
+                                <p class="job-company">Corporate Support Services</p>
+                            </div>
+                            <span class="job-type">Part-time</span>
+                        </div>
+                        <div class="job-details">
+                            <div class="job-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Minneapolis, MN</span>
+                            </div>
+                            <div class="job-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>1 week ago</span>
+                            </div>
+                        </div>
+                        <p class="job-description">Perform data entry, manage files, and provide administrative support. Strong organizational skills and proficiency with office software required.</p>
+                        <div class="job-footer">
+                            <div class="job-salary">$18 - $22/hr</div>
+                            <button class="btn-apply">Apply Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="view-more">
+                    <button class="btn-view-more">View All Data Entry Jobs</button>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Work and Workers</h3>
+                    <p>Connecting talent with opportunity. We're dedicated to helping you find the perfect job match.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="job-listings.html">Job List</a></li>
+                        <li><a href="apply.html">Apply Now</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Job Categories</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Security Guard</a></li>
+                        <li><a href="#">Housemate</a></li>
+                        <li><a href="#">Factory Workers</a></li>
+                        <li><a href="#">Accountants</a></li>
+                        <li><a href="#">Developers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> Office #3, 5 Floor, Gohar center Muslim Town, Wahdat Road, Lahore</li>
+                        <li><i class="fas fa-phone"></i> 042-37002908</li>
+                        <li><i class="fas fa-envelope"></i> workandworkerspk.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy;All rights reserved. Created By IT GENESIS</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Category tab functionality
+            const categoryTabs = document.querySelectorAll('.category-tab');
+            const jobCategories = document.querySelectorAll('.job-category');
+            
+            categoryTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const category = tab.getAttribute('data-category');
+                    
+                    // Update active tab
+                    categoryTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    
+                    // Show/hide job categories
+                    if (category === 'all') {
+                        jobCategories.forEach(cat => {
+                            cat.style.display = 'block';
+                        });
+                    } else {
+                        jobCategories.forEach(cat => {
+                            if (cat.id === category) {
+                                cat.style.display = 'block';
+                            } else {
+                                cat.style.display = 'none';
+                            }
+                        });
+                    }
+                    
+                    // Scroll to the first visible category
+                    const firstVisible = document.querySelector('.job-category[style="display: block"]');
+                    if (firstVisible) {
+                        firstVisible.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
+
+            // Apply button functionality
+            const applyButtons = document.querySelectorAll('.btn-apply');
+            applyButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const jobTitle = button.closest('.job-card').querySelector('.job-title').textContent;
+                    const company = button.closest('.job-card').querySelector('.job-company').textContent;
+                    alert(`Application submitted for ${jobTitle} at ${company}! Our team will review your application shortly.`);
+                });
+            });
+
+            // View more buttons
+            const viewMoreButtons = document.querySelectorAll('.btn-view-more');
+            viewMoreButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const category = button.closest('.job-category').id;
+                    alert(`Loading more ${category} jobs...`);
+                    // In a real application, this would load more jobs via AJAX or navigate to a dedicated page
+                });
+            });
+
+            // Theme toggle functionality
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = themeToggle.querySelector('i');
+            
+            // Check for saved theme preference or default to dark
+            const currentTheme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            
+            // Update icon based on current theme
+            if (currentTheme === 'light') {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            }
+            
+            themeToggle.addEventListener('click', () => {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                
+                // Update theme
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                
+                // Update icon
+                if (newTheme === 'light') {
+                    themeIcon.classList.remove('fa-moon');
+                    themeIcon.classList.add('fa-sun');
+                } else {
+                    themeIcon.classList.remove('fa-sun');
+                    themeIcon.classList.add('fa-moon');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
